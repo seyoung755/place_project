@@ -6,7 +6,7 @@ url = 'https://openapi.gg.go.kr/Genrestrtcate'
 service_key = "7f9474925e55434eb3ac376b10bf04bc"
 
 params = {
-    'pSize' : 2,
+    'pSize' : 10,
     'pIndex' : 1,
     'KEY' : service_key,
     'Type' : 'json',
@@ -20,6 +20,8 @@ res = requests.get(url=url, params=params)
 
 from pprint import pprint
 data = res.json()
-data = data['Genrestrtcate'][1]['row'][1]['LICENSG_DE']
+id = 1
+
+data = data['Genrestrtcate'][1]['row']
 pprint(data)
 # print(res.text)
