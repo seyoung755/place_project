@@ -80,13 +80,15 @@ result_01 = kakao.search_address(query)
 keywords = ['라면', '짬뽕', '양꼬치']
 result_05 = []
 for keyword in keywords:
+    # 로컬 API로 정보 요청
     res = kakao.search_keyword(keyword, x=127, y=37.5, sort='distance', radius=2000, category_group_code='FD6', size=3)
-    # heapq.heappush(result_05, [res['documents']])
+
+    # 거리순으로 저장
     for place in res['documents']:
         dist = place['distance']
-        # print(place['distance'])
-        heapq.heappush(result_05, [dist, place])
 
+        heapq.heappush(result_05, [dist, place])
+# 거리순으로 출력
 for _ in range(9):
     pprint(heapq.heappop(result_05))
     # pprint(res['documents'][0]['distance'])
