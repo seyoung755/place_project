@@ -1,21 +1,22 @@
 import requests
 import json
 import heapq
+from pprint import pprint
 
 class kakao_local_api:
 
-    def __init__(self, rest_api_key):
+    def __init__(self):
 
-        url = 'https://dapi.kakao.com/v2/local/search/'
-        self.rest_api_key = rest_api_key
-        self.headers = {"Authorization" : "KakaoAK {}".format(rest_api_key)}
+        url = 'https://dapi.kakao.com/v2/local/'
+        self.rest_api_key = '7b8fcbc7d75b30e51cee4e9ee3634957'
+        self.headers = {"Authorization" : "KakaoAK {}".format(self.rest_api_key)}
 
-        self.URL_address = 'https://dapi.kakao.com/v2/local/search/address.json'
-        self.URL_region = 'https://dapi.kakao.com/v2/local/geo/coord2regioncode.json'
-        self.URL_coord2address = 'https://dapi.kakao.com/v2/local/geo/coord2address.json'
-        self.URL_transcoord = 'https://dapi.kakao.com/v2/local/geo/transcoord.json'
-        self.URL_keyword = 'https://dapi.kakao.com/v2/local/search/keyword.json'
-        self.URL_category = 'https://dapi.kakao.com/v2/local/search/category.json'
+        self.URL_address = url + 'search/address.json'
+        self.URL_region = url + 'geo/coord2regioncode.json'
+        self.URL_coord2address = url + 'geo/coord2address.json'
+        self.URL_transcoord = url + 'geo/transcoord.json'
+        self.URL_keyword = url + 'search/keyword.json'
+        self.URL_category = url + 'search/category.json'
 
     def search_address(self, query, analyze_type=None, page=None, size=None):
 
@@ -67,11 +68,10 @@ class kakao_local_api:
         return document
 
 # REST API 키로 인스턴스 kakao를 초기화
-rest_api_key = '7b8fcbc7d75b30e51cee4e9ee3634957'
+# rest_api_key = '7b8fcbc7d75b30e51cee4e9ee3634957'
 
-kakao = kakao_local_api(rest_api_key)
+kakao = kakao_local_api()
 
-from pprint import pprint
 
 query = "전북 삼성동 100"
 result_01 = kakao.search_address(query)

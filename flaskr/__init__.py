@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, request, jsonify
 
 def create_app(test_config=None):
     #create and configure the app
@@ -23,7 +23,26 @@ def create_app(test_config=None):
     def hello():
         return 'Hello, World!'
 
+
+    # @app.route('/api/v1/place', methods=['POST'])
+    # def search_place():
+    #     temp = kakao_local_api()
+    #     query = '짜장면'
+    #     user = request.get_json()
+    #     x = jsonify(user['x'])
+    #     y = jsonify(user['y'])
+    #     radius = 1000
+    #
+    #     return temp.search_keyword(query, x=x, y=y, radius=radius)
+    #
+    # @app.route('/environments/<language>')
+    # def environments(language):
+    #     return jsonify({"language": language})
+
     from . import db
     db.init_app(app)
+
+    from . import place_api
+    app.register_blueprint(place_api.bp)
 
     return app
