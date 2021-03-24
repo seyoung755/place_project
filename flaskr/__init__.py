@@ -1,5 +1,6 @@
 import os
-from flask import Flask, request, jsonify
+from flask import Flask
+
 
 def create_app(test_config=None):
     #create and configure the app
@@ -42,7 +43,13 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    from . import place_api
+    # from flaskr.place import place_api
+    # app.register_blueprint(place_api.bp)
+
+    from .place import place_api
     app.register_blueprint(place_api.bp)
+
+    from .place import sub_page
+    app.register_blueprint(sub_page.bp1)
 
     return app
