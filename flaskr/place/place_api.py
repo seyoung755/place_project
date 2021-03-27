@@ -3,38 +3,29 @@
 # )
 from flask import Blueprint, request, jsonify
 from flaskr import kakao_local
+from pprint import pprint
 bp = Blueprint('main', __name__, url_prefix='/')
 # @bp.route('/api', methods=('GET', 'POST'))
 @bp.route('/')
 def index():
     return 'Hello ,Python!'
-# def search():
-#     if request.method == 'POST':
-#         x = request.get_json()
-#         print(type(x))
-#         print(x['x'])
-#         return x
-
 
 
 @bp.route('/api/v1/place', methods = ['GET', 'POST'])
 def search_place():
-    if request.method == 'POST':
+    if request.method == 'GET':
         kakao = kakao_local.kakao_local_api()
-        data = request.get_json()
-        x = data['x']
-        y = data['y']
-        radius = data['radius']
-        query = '라면'
-        res = kakao.search_keyword(query, x=x, y=y, radius=radius, size=5)['documents']
-        res = sorted(res, key=lambda x: int(x['distance']))
+
+        query = ['짜장면', '떡볶이', '양꼬치']
+        x = request.args.get('x')
+        y = request.args.get('y')
+        radius = int(request.args.get('radius'))
+        # print(x,y,radius)
+
+        res = []
+        for q in query:
+            # res.extend(kakao.search_keyword(q, x=x, y=y))
+            res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents'])
+        # pprint(res)
+        res = sorted(res, key=lambda x: x['distance'])
         return jsonify(res)
-
-    # user = request.get_json()
-
-    # return jsonify(user['x'])
-#
-# @app.route('/environments/<language>')
-# def environments(language):
-#     return jsonify({"language":language})
-
