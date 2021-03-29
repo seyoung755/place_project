@@ -27,5 +27,5 @@ def search_place():
             # res.extend(kakao.search_keyword(q, x=x, y=y))
             res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents'])
         # pprint(res)
-        res = sorted(res, key=lambda x: x['distance'])
+        res = sorted(res, key=lambda x: int(x['distance']))
         return jsonify(res)
