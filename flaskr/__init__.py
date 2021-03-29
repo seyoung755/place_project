@@ -13,6 +13,8 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite')
     )
+    # 한글 깨짐 문제
+    app.config['JSON_AS_ASCII'] = False
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
