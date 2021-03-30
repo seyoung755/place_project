@@ -22,23 +22,40 @@ def search_place():
         x = request.args.get('x')
         y = request.args.get('y')
         radius = int(request.args.get('radius'))
+        # 위도, 경도를 격자 좌표로 변환
+        try:
+            grid_x, grid_y = location_code_fetcher.mapToGrid(float(y), float(x))
+        except Exception as e:
+            return jsonify(e)
 
-        grid_x, grid_y = location_code_fetcher.mapToGrid(float(y), float(x))
+        # 날씨 api로부터 날씨 수신
         weather = weather_api.today_weather(str(grid_x), str(grid_y))
 
-
+        # 날씨 별 keyword 정리
         query = {"맑음" : ["치킨", "피자", "탕수육", "고기"],
-                 "더움" : ["냉면", "빙수", "아이스크림", "밀면"],
-                 "추움" : ["우동", "라멘", "라면", "샤브샤브", "국물"],
-                 "비" : ["막걸리", "파전"]}
+                 "더움" : ["냉면", "빙수", "아이스크림", "밀면", "맥주"],
+                 "추움" : ["우동", "라멘", "라면", "샤브샤브", "국물", "짬뽕"],
+                 "비" : ["막걸리", "파전", "짬뽕"],
+                 "흐림": ["김밥", "떡볶이", "순대", "튀김"]
+                 }
 
 
 
         res = []
 
-        for q in query[weather]:
-            res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents'])
-        # pprint(res)
+        for q in query.setdefault(weather, "맑음"):
+            if kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents']:
+                # 분류별 피드하는 코드
+                # res.append({q: kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents']})
+
+                res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents'])
+                # res[-1]['query'] = q
+                # res[-1]['weather'] = weather
+            # pprint(res)
+
+        # 검색된 장소들을 최단거리로 정렬
         res = sorted(res, key=lambda x: int(x['distance']))
-        res.insert(0, weather)
+        # query 확인용 코드
+        res.insert(0, query[weather])
         return jsonify(res)
+

@@ -63,8 +63,8 @@ class kakao_local_api:
 
 
         res = requests.get(self.URL_keyword, headers=self.headers, params=params)
-        document = json.loads(res.text)
 
+        document = json.loads(res.text)
         return document
 
 # REST API 키로 인스턴스 kakao를 초기화
