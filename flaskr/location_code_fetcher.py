@@ -43,9 +43,13 @@ def mapToGrid(lat, lon, code = 0 ):
     theta *= sn
     x = (ra * math.sin(theta)) + xo
     y = (ro - ra * math.cos(theta)) + yo
-    x = int(x + 1.5)
-    y = int(y + 1.5)
-    return x, y
+    try:
+        x = int(x + 1.5)
+        y = int(y + 1.5)
+        return x, y
+    except Exception as e:
+        return e
+
 
 # print(mapToGrid(37.579871128849334, 126.98935225645432))
 # print(mapToGrid(35.101148844565955, 129.02478725562108))

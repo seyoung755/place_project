@@ -19,7 +19,11 @@ def today_weather(nx, ny):
     # 값 요청
     res = requests.get(vilage_weather_url + payload)
     res.json()
-    items = res.json().get('response').get('body').get('items').get('item')
+    try:
+        items = res.json().get('response').get('body').get('items').get('item')
+    except Exception as e:
+        return "맑음"
+
 
     data = dict()
     data['date'] = base_date

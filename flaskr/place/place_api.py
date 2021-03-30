@@ -35,8 +35,10 @@ def search_place():
 
 
         res = []
+
         for q in query[weather]:
             res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents'])
         # pprint(res)
         res = sorted(res, key=lambda x: int(x['distance']))
+        res.insert(0, weather)
         return jsonify(res)
