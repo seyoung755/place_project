@@ -60,7 +60,7 @@ def today_weather(nx, ny):
 
             weather_rain = item['fcstValue']
 
-            if int(weather_rain) > 20:
+            if float(weather_rain) > 20:
                 weather_rainny = '장마'
             else:
                 weather_rainny = '비'
