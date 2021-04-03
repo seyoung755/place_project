@@ -55,7 +55,8 @@ def search_place():
 
         # 검색된 장소들을 최단거리로 정렬
         res = sorted(res, key=lambda x: int(x['distance']))
-        # query 확인용 코드
-        res.insert(0, query[weather])
+        # query 확인용 코드 => 주변에 음식점이 없을 경우
+        if not res:
+            res.insert(0, query[weather])
         return jsonify(res)
 
