@@ -48,7 +48,7 @@ def search_place():
                 # 분류별 피드하는 코드
                 # res.append({q: kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents']})
 
-                res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents'])
+                res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=10)['documents'])
                 # res[-1]['query'] = q
                 # res[-1]['weather'] = weather
             # pprint(res)

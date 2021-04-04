@@ -1,6 +1,8 @@
 import os
 from flask import Flask
 from flask_cors import CORS
+# https 모듈 추가
+import ssl
 
 def create_app(test_config=None):
     #create and configure the app
@@ -57,5 +59,8 @@ def create_app(test_config=None):
 
     from .place import sub_page
     app.register_blueprint(sub_page.bp1)
+
+    # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
+    # ssl_context.load_cert_chain(certfile='newcert.pem', keyfile='newkey.pem', password='secret')
 
     return app
