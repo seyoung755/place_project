@@ -12,7 +12,6 @@ bp = Blueprint('main', __name__, url_prefix='/')
 def index():
     return 'Hello ,Python!'
 
-
 @bp.route('/api/v1/place', methods = ['GET', 'POST'])
 def search_place():
     if request.method == 'GET':
@@ -31,26 +30,26 @@ def search_place():
         # 날씨 api로부터 날씨 수신
         weather = weather_api.today_weather(str(grid_x), str(grid_y))
 
-        # 날씨 별 keyword 정리
-        query = {"맑음" : ["치킨", "피자", "탕수육", "고기"],
-                 "더움" : ["냉면", "빙수", "아이스크림", "밀면", "맥주"],
-                 "추움" : ["우동", "라멘", "라면", "샤브샤브", "국물", "짬뽕"],
-                 "비" : ["막걸리", "파전", "짬뽕"],
-                 "흐림": ["김밥", "떡볶이", "순대", "튀김"]
-                 }
+        # 날씨 별 keyword 정리 => weather_api 로 이동
+        # query = {"맑음" : ["치킨", "피자", "탕수육", "고기"],
+        #          "더움" : ["냉면", "빙수", "아이스크림", "밀면", "맥주"],
+        #          "추움" : ["우동", "라멘", "라면", "샤브샤브", "국물", "짬뽕"],
+        #          "비" : ["막걸리", "파전", "짬뽕"],
+        #          "흐림": ["김밥", "떡볶이", "순대", "튀김"]
+        #          }
 
 
 
         res = []
 
-        for q in query.setdefault(weather, "맑음"):
-            if kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents']:
-                # 분류별 피드하는 코드
-                # res.append({q: kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents']})
+        for q in weather_api.query.setdefault(weather, "맑음"):
 
-                res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=10)['documents'])
-                # res[-1]['query'] = q
-                # res[-1]['weather'] = weather
+            #     # 분류별 피드하는 코드
+            #     # res.append({q: kakao.search_keyword(q, x=x, y=y, radius=radius, size=2)['documents']})
+
+            res.extend(kakao.search_keyword(q, x=x, y=y, radius=radius, size=10)['documents'])
+            # res[-1]['query'] = q
+            # res[-1]['weather'] = weather
             # pprint(res)
 
         # 검색된 장소들을 최단거리로 정렬
@@ -60,3 +59,13 @@ def search_place():
             res.insert(0, query[weather])
         return jsonify(res)
 
+@bp.route('/api/v1/food', methods = ['GET'])
+def get_foods():
+    if request.method == 'GET':
+        x = request.args.get('x')
+        y = request.args.get('y')
+        grid_x, grid_y = location_code_fetcher.mapToGrid(float(y), float(x))
+        weather = weather_api.today_weather(str(grid_x), str(grid_y))
+
+        foods = weather_api.query.get(weather)
+        return jsonify(foods)

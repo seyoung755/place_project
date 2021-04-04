@@ -2,6 +2,13 @@ import requests
 import json
 import datetime
 
+query = {"맑음" : ["치킨", "피자", "탕수육", "고기"],
+                 "더움" : ["냉면", "빙수", "아이스크림", "밀면", "맥주"],
+                 "추움" : ["우동", "라멘", "라면", "샤브샤브", "국물", "짬뽕"],
+                 "비" : ["막걸리", "파전", "짬뽕"],
+                 "흐림": ["김밥", "떡볶이", "순대", "튀김"]
+                 }
+
 def today_weather(nx, ny):
     vilage_weather_url = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getVilageFcst?"
 
