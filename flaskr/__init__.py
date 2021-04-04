@@ -60,6 +60,8 @@ def create_app(test_config=None):
     from .place import sub_page
     app.register_blueprint(sub_page.bp1)
 
+    from .place import food_api
+    app.register_blueprint(food_api.bp_food)
     # ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS)
     # ssl_context.load_cert_chain(certfile='newcert.pem', keyfile='newkey.pem', password='secret')
 

@@ -59,13 +59,13 @@ def search_place():
             res.insert(0, query[weather])
         return jsonify(res)
 
-@bp.route('/api/v1/food', methods = ['GET'])
-def get_foods():
-    if request.method == 'GET':
-        x = request.args.get('x')
-        y = request.args.get('y')
-        grid_x, grid_y = location_code_fetcher.mapToGrid(float(y), float(x))
-        weather = weather_api.today_weather(str(grid_x), str(grid_y))
-
-        foods = weather_api.query.get(weather)
-        return jsonify(foods)
+# @bp.route('/api/v1/food', methods = ['GET'])
+# def get_foods():
+#     if request.method == 'GET':
+#         x = request.args.get('x')
+#         y = request.args.get('y')
+#         grid_x, grid_y = location_code_fetcher.mapToGrid(float(y), float(x))
+#         weather = weather_api.today_weather(str(grid_x), str(grid_y))
+#
+#         foods = weather_api.query.get(weather)
+#         return jsonify(foods)
