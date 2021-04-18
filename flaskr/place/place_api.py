@@ -42,5 +42,5 @@ def search_place():
         res = sorted(res, key=lambda x: int(x['distance']))
         # query 확인용 코드 => 주변에 음식점이 없을 경우
         if not res:
-            res.insert(0, weather_api.setdefault(weather, "맑음"))
+            res.insert(0, weather_api.query.setdefault(weather, "맑음"))
         return jsonify(res)
