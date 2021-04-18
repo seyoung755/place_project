@@ -1,0 +1,22 @@
+language: python
+python:
+  - "3.9.1"
+
+branches:
+  only:
+    - master
+
+install:
+  - pip install coveralls
+
+script:
+  - coverage run --source=app setup.py test
+
+after_success:
+  - coveralls
+
+
+notifications:
+  email:
+    recipients:
+      - seyoung7555@naver.com

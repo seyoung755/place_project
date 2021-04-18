@@ -7,6 +7,7 @@ import ssl
 def create_app(test_config=None):
     #create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    # app.config.from_object('app.config.TestingConfig')
     cors = CORS(app, resources={
         r"/v1/*": {"origin" : "*"},
         r"/api/*" : {"origin": "*"},
