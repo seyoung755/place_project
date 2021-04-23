@@ -12,5 +12,6 @@ https://adoring-heyrovsky-d172e9.netlify.app/map
 + (추가예정) 해당 음식점들의 리뷰나 평점 기능 구현
 + 회원가입 기능과 CRUD 구현
 
-- Backend : Python Flask, AWS EC2, Git
-- Frontend : ReactJS, Redux 
+- Backend : Python Flask, AWS EC2, Git [김세영, 김민아]
+- Frontend : ReactJS, Redux [이경엽: https://github.com/kyupkyup/it_non_major-frontend]
+
