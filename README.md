@@ -10,7 +10,7 @@ https://adoring-heyrovsky-d172e9.netlify.app/map
  : KAKAO 로컬 API, 공공데이터 우리 동네 예보 API를 이용한 조회
  
 + (추가예정) 해당 음식점들의 리뷰나 평점 기능 구현
-+ 회원가입 기능과 CRUD 구현
+             회원가입 기능과 리뷰 관련 CRUD 구현
 
 - Backend : Python Flask, AWS EC2, Git [김세영, 김민아]
 - Frontend : ReactJS, Redux [이경엽: https://github.com/kyupkyup/it_non_major-frontend]
