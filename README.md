@@ -1,6 +1,6 @@
 # place_project
 
-네이버 플레이스 클론코딩 프로젝트
+오늘의 음식 프로젝트
 https://adoring-heyrovsky-d172e9.netlify.app/map
 
 [![Coverage Status](https://coveralls.io/repos/github/seyoung755/place_project/badge.svg?branch=master)](https://coveralls.io/github/seyoung755/place_project?branch=master)
